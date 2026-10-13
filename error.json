@@ -1,6 +1,0 @@
-{
-  "error": {
-    "code": "UNAUTHORIZED",
-    "message": "Token otentikasi tidak valid atau telah kedaluwarsa."
-  }
-}
