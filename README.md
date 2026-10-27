@@ -30,11 +30,3 @@ Ikuti langkah-langkah berikut untuk menjalankan server backend di komputer lokal
 ```bash
 git clone [https://github.com/Anin05/PPL2026_F6.git](https://github.com/Anin05/PPL2026_F6.git)
 cd PPL2026_F6
-
-### 2. Pindah ke branch Pengembangan
-'''bash
-git checkout be_anandita
-
-### 3. Install Dependensi PHP 
-'''bash
-composer install
