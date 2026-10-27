@@ -1,1 +1,426 @@
+openapi: 3.0.3
+info:
+  title: API Modul Referensi Klien dan Kontak (F6)
+  description: >-
+    Spesifikasi RESTful API Modul F6 (CRM Klien dan Kontak) ERP Software PT
+    Anaheim Nimbus Universal. Berintegrasi penuh dengan Kelompok 1 (F-1) 
+    untuk autentikasi JWT serta otorisasi peran (AM, ADMIN, CEO, COO), 
+    dan menyediakan endpoint referensi klien untuk Kelompok D-1 (Registrasi Proyek & Intake).
+  version: 1.2.1
+  contact:
+    name: Kelompok F-6 (Kelas F)
+    email: client.support@anaheimnimbus.co.id
+servers:
+  - url: http://127.0.0.1:8000/api/v1
+    description: Lingkungan pengembangan lokal (Laravel Backend)
 
+security:
+  - bearerAuth: []
+
+paths:
+  /clients:
+    get:
+      summary: Mendapatkan daftar klien (API Referensi Konsumen D-1 & Internal F6)
+      operationId: API-KF6-01
+      tags:
+        - Clients
+      description: >-
+        Digunakan oleh D-1 untuk mengambil referensi registrasi proyek (hanya membaca field 
+        referensi) dan Frontend F6 untuk pencarian klien.
+      parameters:
+        - name: q
+          in: query
+          description: Pencarian berdasarkan nama perusahaan atau kode klien (minimal 2 karakter)
+          required: false
+          schema:
+            type: string
+            example: anaheim
+        - name: status
+          in: query
+          description: Filter status klien (active/archived)
+          required: false
+          schema:
+            type: string
+            enum: [active, archived]
+            default: active
+        - name: limit
+          in: query
+          description: Jumlah data per halaman (maksimal 100)
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Berhasil mengambil daftar klien.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Client'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      per_page:
+                        type: integer
+                        example: 10
+                      total:
+                        type: integer
+                        example: 1
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      summary: Mendaftarkan klien baru (Internal F6 - Uji 1 / VAL-01 & VAL-02)
+      operationId: API-KF6-03
+      tags:
+        - Clients
+      description: >-
+        Membuat data master klien baru. Memerlukan peran AM, ADMIN, CEO, atau COO 
+        berdasarkan verifikasi token F-1.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientInput'
+      responses:
+        '201':
+          description: Klien berhasil ditambahkan.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Klien berhasil ditambahkan.
+                  data:
+                    $ref: '#/components/schemas/Client'
+        '400':
+          description: Validasi data gagal / Kode duplikat (VAL-01 / VAL-02).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+
+  /clients/{clientId}:
+    get:
+      summary: Melihat detail klien (Konsumen D-1 & Internal F6 - Uji 2 & 4)
+      operationId: API-KF6-02
+      tags:
+        - Clients
+      description: >-
+        Validasi dan pengambilan detail klien oleh D-1 (Intake Proyek) maupun 
+        internal F6. Menerima UUID maupun kode bisnis (contoh KLI-001).
+      parameters:
+        - name: clientId
+          in: path
+          description: UUID Klien atau Kode Klien (misal 01a17853-41ae-... atau KLI-001)
+          required: true
+          schema:
+            type: string
+            example: KLI-001
+      responses:
+        '200':
+          description: Detail klien ditemukan.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Client'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+    put:
+      summary: Mengubah data kontak/profil klien (Internal F6 - Uji 3)
+      operationId: updateClient
+      tags:
+        - Clients
+      description: Memperbarui field kontak klien yang diizinkan tanpa mengubah ID/Kode.
+      parameters:
+        - name: clientId
+          in: path
+          description: UUID Klien atau Kode Klien (misal KLI-001)
+          required: true
+          schema:
+            type: string
+            example: KLI-001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: PT Anaheim Nimbus Universal
+                address:
+                  type: string
+                  example: Jl. Jendral Sudirman No. 123
+                city:
+                  type: string
+                  example: Jakarta
+                phone:
+                  type: string
+                  example: 021-55509999
+                mobile:
+                  type: string
+                  example: 081234567890
+                email:
+                  type: string
+                  example: contact@anaheim.co.id
+      responses:
+        '200':
+          description: Data klien berhasil diperbarui.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Klien berhasil diperbarui.
+                  data:
+                    $ref: '#/components/schemas/Client'
+        '400':
+          $ref: '#/components/schemas/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /clients/{clientId}/status:
+    patch:
+      summary: Mengarsipkan klien dan kontaknya (Internal F6)
+      operationId: archiveClient
+      tags:
+        - Clients
+      description: Transisi status klien dari active ke archived tanpa hard-delete.
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: KLI-001
+      responses:
+        '200':
+          description: Klien dan kontaknya berhasil diarsipkan.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Klien dan kontaknya berhasil diarsipkan.
+                  data:
+                    $ref: '#/components/schemas/Client'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Token JWT resmi yang diterbitkan oleh F-1 (POST /auth/login);
+        membawa akunId dan kodePeran (misal AM, ADMIN, CEO, COO).
+
+  schemas:
+    KodePeranF1:
+      type: string
+      enum: [CEO, COO, CTO, ADMIN, AM, PM, KARYAWAN, TENAGA_AHLI]
+      description: Referensi peran kanonis dari modul F-1.
+
+    ClientInput:
+      type: object
+      required:
+        - code
+        - name
+      properties:
+        code:
+          type: string
+          example: KLI-001
+          description: Kode unik klien diterbitkan F6 (VAL-01)
+        name:
+          type: string
+          example: PT Anaheim Nimbus Universal
+          description: Nama resmi perusahaan klien (VAL-02)
+        address:
+          type: string
+          example: Jl. Jendral Sudirman No. 123
+        city:
+          type: string
+          example: Jakarta
+        phone:
+          type: string
+          example: 021-55501200
+        mobile:
+          type: string
+          example: 081234567890
+        email:
+          type: string
+          example: info@anaheim.co.id
+
+    Client:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 01a17853-41ae-72b3-b76d-c78de8d03c6f
+        code:
+          type: string
+          example: KLI-001
+        name:
+          type: string
+          example: PT Anaheim Nimbus Universal
+        address:
+          type: string
+          example: Jl. Jendral Sudirman No. 123
+        city:
+          type: string
+          example: Jakarta
+        phone:
+          type: string
+          example: 021-55509999
+        mobile:
+          type: string
+          example: 081234567890
+        email:
+          type: string
+          example: contact@anaheim.co.id
+        status:
+          type: string
+          enum: [active, archived]
+          example: active
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-10-26T13:08:04.000000Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-10-26T13:59:38.000000Z"
+        contacts:
+          type: array
+          items:
+            type: object
+          example: []
+        interactions:
+          type: array
+          items:
+            type: object
+          example: []
+
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: VALIDATION_ERROR
+            message:
+              type: string
+              example: Data klien tidak valid.
+            details:
+              type: object
+              example:
+                code:
+                  - The code has already been taken.
+
+  responses:
+    UnauthorizedError:
+      description: Token F-1 JWT tidak ditemukan, tidak valid, atau kedaluwarsa.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                example: UNAUTHORIZED
+              message:
+                type: string
+                example: Token tidak ada, tidak valid, atau sudah kedaluwarsa.
+
+    ForbiddenError:
+      description: Peran pengguna dari F-1 tidak memiliki izin (bukan AM/ADMIN/CEO/COO).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                example: FORBIDDEN
+              message:
+                type: string
+                example: Peran pengguna tidak memiliki hak akses untuk operasi ini.
+
+    NotFoundError:
+      description: Data klien tidak ditemukan.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: CLIENT_NOT_FOUND
+                  message:
+                    type: string
+                    example: Klien tidak ditemukan.
+                  details:
+                    type: string
+                    nullable: true
+                    example: null
