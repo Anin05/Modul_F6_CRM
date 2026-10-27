@@ -99,7 +99,10 @@ class ClientController extends Controller
         $client = Client::with([
             'contacts',
             'interactions',
-        ])->find($clientId);
+        ])
+        ->where('id', $clientId)
+        ->orWhere('code', $clientId)
+        ->first();
 
         if (!$client) {
             return $this->notFound();
@@ -116,8 +119,10 @@ class ClientController extends Controller
         Request $request,
         string $clientId
     ): JsonResponse {
-        $client = Client::find($clientId);
-
+// UBAH BARIS INI: Agar PUT bisa menerima UUID maupun KLI-001
+    $client = Client::where('id', $clientId)
+        ->orWhere('code', $clientId)
+        ->first();
         if (!$client) {
             return $this->notFound();
         }
@@ -165,7 +170,10 @@ class ClientController extends Controller
     // PATCH /api/v1/clients/{clientId}/status
     public function updateStatus(string $clientId): JsonResponse
     {
-        $client = Client::find($clientId);
+        // Cari berdasarkan 'id' ATAU 'code'
+    $client = Client::where('id', $clientId)
+        ->orWhere('code', $clientId)
+        ->first();
 
         if (!$client) {
             return $this->notFound();
