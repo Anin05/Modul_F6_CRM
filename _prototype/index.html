@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANAHEIM CRM</title>
+  <meta name="description" content="ANAHEIM ERP F-6 – Modul CRM Klien & Kontak untuk pengelolaan data klien, direktori kontak, dan riwayat interaksi bisnis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="scrim" id="scrim"></div>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <h2 class="top-title" id="pageTitle">Master Klien</h2>
+        <div class="top-right">
+          <label class="top-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input id="globalSearch" placeholder="Cari di workspace..." autocomplete="off">
+            <kbd>⌘ K</kbd>
+          </label>
+          <button class="icon-btn bell" id="bellBtn" aria-label="Notifikasi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <i class="dot"></i>
+          </button>
+          <span class="top-sep"></span>
+          <button class="user" id="userBtn">
+            <span class="user-av">AC</span>
+            <span class="user-t"><b>Admin CRM</b><small>Administrator</small></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="content" id="view"></main>
+
+      <footer class="foot">
+        <span>© 2026 PT Anaheim Nimbus Universal</span>
+        <span>F-6 · CRM Klien &amp; Kontak</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- JavaScript: urutan load harus sesuai dependency -->
+  <!-- 1. Data (klien, kontak, interaksi) -->
+  <script src="js/data.js"></script>
+  <!-- 2. Komponen (helpers, icons, state, pager, toast, menu) -->
+  <script src="js/components.js"></script>
+  <!-- 3. Halaman-halaman -->
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/klien.js"></script>
+  <script src="js/pages/klienForm.js"></script>
+  <script src="js/pages/detail.js"></script>
+  <script src="js/pages/kontakForm.js"></script>
+  <script src="js/pages/kontak.js"></script>
+  <script src="js/pages/riwayat.js"></script>
+  <script src="js/pages/arsip.js"></script>
+  <!-- 4. Actions (ACT handlers + FORMS validators) -->
+  <script src="js/actions.js"></script>
+  <!-- 5. Router + event listeners + init -->
+  <script src="js/router.js"></script>
+</body>
+
+</html>

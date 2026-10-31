@@ -1,224 +1,58 @@
-# Modul F-6: CRM (Client and Contact Management)
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-**ERP PT Anaheim Nimbus Universal — Kelompok F-6**
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## 1. Deskripsi Aplikasi
+## About Laravel
 
-Modul F-6 merupakan bagian dari sistem ERP yang berfungsi untuk mengelola data klien dan kontak perusahaan. Modul ini membantu proses pencatatan, penyimpanan, dan pengelolaan informasi klien agar data tersusun dengan rapi dan mudah diakses.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-Fitur utama yang dikembangkan meliputi:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- Pengelolaan data klien.
-- Pembuatan kode unik untuk setiap klien.
-- Penyimpanan informasi perusahaan, seperti nama, alamat, dan kota.
-- Pengelolaan informasi kontak, seperti nomor telepon, email, dan PIC.
-- Penambahan, pengubahan, penampilan, dan penghapusan data klien.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## 2. Teknologi yang Digunakan
+## Learning Laravel
 
-| Teknologi | Keterangan |
-|---|---|
-| Laravel | Framework backend |
-| PHP | Bahasa pemrograman |
-| SQLite | Database lokal |
-| Composer | Dependency manager PHP |
-| REST API | Komunikasi antar aplikasi |
-| OpenAPI 3.0.0 | Standar dokumentasi API |
-| GitHub | Pengelolaan repositori |
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## 3. Struktur Repositori
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-Berikut merupakan struktur folder utama project Laravel F-6:
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-```text
-PPL2026_F6/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   └── Requests/
-│   └── Models/
-├── bootstrap/
-├── config/
-├── database/
-│   ├── migrations/
-│   ├── seeders/
-│   ├── factories/
-│   └── database.sqlite
-├── openapi/
-│   └── openapi.yaml
-├── public/
-├── resources/
-├── routes/
-│   ├── api.php
-│   └── web.php
-├── storage/
-├── tests/
-├── .env.example
-├── .gitignore
-├── artisan
-├── composer.json
-├── composer.lock
-└── README.md
-```
+## Agentic Development
 
-**Keterangan folder dan file:**
-
-- `app/`: Menyimpan kode utama aplikasi, seperti model dan controller.
-- `bootstrap/`: Menyimpan proses awal atau konfigurasi bootstrap Laravel.
-- `config/`: Menyimpan konfigurasi aplikasi.
-- `database/`: Menyimpan migration, seeder, factory, dan database SQLite.
-- `openapi/`: Menyimpan spesifikasi dan dokumentasi REST API.
-- `public/`: Direktori utama yang dapat diakses melalui web.
-- `resources/`: Menyimpan file tampilan dan aset aplikasi.
-- `routes/`: Menyimpan definisi endpoint API dan web.
-- `storage/`: Menyimpan file log, cache, dan file yang dihasilkan aplikasi.
-- `tests/`: Menyimpan file pengujian aplikasi.
-- `.env.example`: Contoh konfigurasi environment aplikasi.
-- `artisan`: File command-line interface Laravel.
-- `composer.json`: Menyimpan informasi dependency project.
-- `composer.lock`: Menyimpan versi dependency yang digunakan project.
-
-## 4. Panduan Instalasi dan Menjalankan Backend Lokal
-
-### A. Persyaratan
-
-Pastikan perangkat sudah memiliki beberapa kebutuhan berikut:
-
-- PHP sesuai versi yang dibutuhkan project Laravel.
-- Composer.
-- SQLite.
-- Git.
-- Web browser.
-- Postman (opsional, untuk pengujian API).
-
-### B. Clone Repository
-
-Buka terminal atau CMD, kemudian jalankan perintah berikut:
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
 ```bash
-git clone https://github.com/Anin05/PPL2026_F6.git
+composer require laravel/boost --dev
+
+php artisan boost:install
 ```
 
-Masuk ke folder project:
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-```bash
-cd PPL2026_F6
-```
+## Contributing
 
-### C. Install Dependency
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-Jalankan perintah berikut untuk menginstal seluruh dependency Laravel:
+## Code of Conduct
 
-```bash
-composer install
-```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### D. Konfigurasi Environment
+## Security Vulnerabilities
 
-Salin file `.env.example` menjadi `.env`.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-Untuk Windows CMD:
+## License
 
-```cmd
-copy .env.example .env
-```
-
-Untuk terminal Linux atau macOS:
-
-```bash
-cp .env.example .env
-```
-
-Selanjutnya, buka file `.env` dan sesuaikan konfigurasi database menjadi:
-
-```env
-DB_CONNECTION=sqlite
-```
-
-Pastikan konfigurasi database lainnya tidak mengarahkan aplikasi ke MySQL.
-
-### E. Menyiapkan Database SQLite
-
-Pastikan file database SQLite tersedia di dalam folder `database/` dengan nama:
-
-```text
-database/database.sqlite
-```
-
-Jika file tersebut belum tersedia, buat file baru bernama `database.sqlite` di dalam folder `database/`.
-
-Untuk Windows CMD, dapat menggunakan perintah:
-
-```cmd
-type nul > database\database.sqlite
-```
-
-### F. Generate Application Key
-
-Jalankan perintah berikut untuk membuat application key Laravel:
-
-```bash
-php artisan key:generate
-```
-
-### G. Menjalankan Migration
-
-Jalankan perintah berikut untuk membuat tabel database berdasarkan file migration yang tersedia:
-
-```bash
-php artisan migrate
-```
-
-Jika project menyediakan seeder dan membutuhkan data awal, jalankan:
-
-```bash
-php artisan db:seed
-```
-
-### H. Menjalankan Server Laravel
-
-Setelah konfigurasi selesai, jalankan server lokal dengan perintah:
-
-```bash
-php artisan serve
-```
-
-Jika berhasil, aplikasi backend dapat diakses melalui alamat:
-
-```text
-http://127.0.0.1:8000
-```
-
-## 5. Dokumentasi API
-
-Spesifikasi dan kontrak REST API Modul F-6 ditulis menggunakan standar OpenAPI 3.0.0 yang tersimpan pada berkas **[`openapi/openapi.yaml`](openapi/openapi.yaml)**.
-
-File tersebut menjelaskan daftar endpoint, metode HTTP, skema request dan response, serta kode status error yang digunakan dalam proses pengelolaan data klien dan kontak perusahaan.
-
-Dokumentasi ini menjadi acuan bagi tim pengembang dalam memahami struktur komunikasi antara backend dan sistem lain yang terintegrasi dengan Modul F-6.
-
-## 6. Integrasi Sistem
-
-Modul F-6 berfungsi untuk menyediakan dan mengelola data klien serta kontak perusahaan yang dapat digunakan oleh modul lain dalam sistem ERP.
-
-Informasi yang dikelola meliputi:
-
-- Kode unik klien sebagai identitas setiap perusahaan.
-- Nama dan alamat perusahaan.
-- Informasi kota atau lokasi perusahaan.
-- Nama PIC atau penanggung jawab.
-- Nomor telepon dan alamat email kontak.
-
-Data tersebut dapat dimanfaatkan oleh modul lain yang membutuhkan informasi klien sebagai bagian dari proses bisnis perusahaan.
-
-## 7. Penutup
-
-Repository ini merupakan dokumentasi pengembangan Modul F-6: CRM (Client and Contact Management) pada proyek ERP PT Anaheim Nimbus Universal.
-
-Dokumentasi ini diharapkan dapat membantu proses pengembangan, pengujian, pemeliharaan, serta integrasi backend dengan modul lain dalam sistem ERP.
-
----
-
-**Kelompok F-6**  
-Program Studi Teknik Informatika  
-Universitas Pasundan
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
