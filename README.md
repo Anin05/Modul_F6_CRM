@@ -23,7 +23,7 @@ Fitur utama yang dikembangkan meliputi:
 | SQLite | Database lokal |
 | Composer | Dependency manager PHP |
 | REST API | Komunikasi antar aplikasi |
-| OpenAPI 3.0.0 | Dokumentasi spesifikasi API |
+| OpenAPI 3.0.0 | Standar dokumentasi API |
 | GitHub | Pengelolaan repositori |
 
 ## 3. Struktur Repositori
@@ -44,6 +44,8 @@ PPL2026_F6/
 │   ├── seeders/
 │   ├── factories/
 │   └── database.sqlite
+├── openapi/
+│   └── openapi.yaml
 ├── public/
 ├── resources/
 ├── routes/
@@ -51,13 +53,11 @@ PPL2026_F6/
 │   └── web.php
 ├── storage/
 ├── tests/
-├── vendor/
 ├── .env.example
 ├── .gitignore
 ├── artisan
 ├── composer.json
 ├── composer.lock
-├── openapi.yaml
 └── README.md
 ```
 
@@ -67,6 +67,7 @@ PPL2026_F6/
 - `bootstrap/`: Menyimpan proses awal atau konfigurasi bootstrap Laravel.
 - `config/`: Menyimpan konfigurasi aplikasi.
 - `database/`: Menyimpan migration, seeder, factory, dan database SQLite.
+- `openapi/`: Menyimpan spesifikasi dan dokumentasi REST API.
 - `public/`: Direktori utama yang dapat diakses melalui web.
 - `resources/`: Menyimpan file tampilan dan aset aplikasi.
 - `routes/`: Menyimpan definisi endpoint API dan web.
@@ -75,7 +76,7 @@ PPL2026_F6/
 - `.env.example`: Contoh konfigurasi environment aplikasi.
 - `artisan`: File command-line interface Laravel.
 - `composer.json`: Menyimpan informasi dependency project.
-- `openapi.yaml`: Dokumentasi spesifikasi API.
+- `composer.lock`: Menyimpan versi dependency yang digunakan project.
 
 ## 4. Panduan Instalasi dan Menjalankan Backend Lokal
 
@@ -190,18 +191,11 @@ http://127.0.0.1:8000
 
 ## 5. Dokumentasi API
 
-Dokumentasi API pada Modul F-6 menggunakan format OpenAPI 3.0.0 dan disimpan dalam file `openapi.yaml`.
+Spesifikasi dan kontrak REST API Modul F-6 ditulis menggunakan standar OpenAPI 3.0.0 yang tersimpan pada berkas **[`openapi/openapi.yaml`](openapi/openapi.yaml)**.
 
-Dokumentasi ini berfungsi sebagai panduan untuk mengetahui endpoint, metode HTTP, parameter, request body, serta response yang tersedia pada backend.
+File tersebut menjelaskan daftar endpoint, metode HTTP, skema request dan response, serta kode status error yang digunakan dalam proses pengelolaan data klien dan kontak perusahaan.
 
-Untuk melihat dokumentasi API, ikuti langkah berikut:
-
-1. Buka [Swagger Editor](https://editor.swagger.io/).
-2. Pilih menu File, kemudian Open.
-3. Masukkan atau upload file `openapi.yaml`.
-4. Dokumentasi endpoint API akan ditampilkan pada Swagger Editor.
-
-Dokumentasi ini dapat digunakan oleh tim frontend sebagai acuan dalam menghubungkan aplikasi dengan backend.
+Dokumentasi ini menjadi acuan bagi tim pengembang dalam memahami struktur komunikasi antara backend dan sistem lain yang terintegrasi dengan Modul F-6.
 
 ## 6. Integrasi Sistem
 
