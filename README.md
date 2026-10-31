@@ -1,10 +1,11 @@
-# 🚀 Modul F-6 CRM Klien dan Kontak (Laravel API)
+# 📂 Modul F-6: CRM Klien dan Kontak (ERP Sistem)
 
-Repositori backend untuk **Modul F-6 (CRM Klien dan Kontak)** yang dibangun menggunakan **Laravel (PHP)** dan **SQLite** sebagai bagian dari tugas Proyek Perangkat Lunak (PPL).
+Repositori ini berisi kode sumber **Backend Laravel** beserta dokumentasi kontrak API untuk Modul F-6 (*Customer Relationship Management* - Klien dan Kontak) dalam proyek pengembangan sistem Enterprise Resource Planning (ERP) PT Anaheim Nimbus Universal.
 
 ---
 
-## 👥 Tim Penyusun (Kelompok F6)
+## 👥 Tim Penyusun (Kelompok F-6)
+
 * **Project Manager / Dokumentasi**: Habib Wira
 * **Backend Developer**: Anandita Putri
 * **Testing & Validasi API**: Anindya Gita
@@ -13,20 +14,50 @@ Repositori backend untuk **Modul F-6 (CRM Klien dan Kontak)** yang dibangun meng
 
 ---
 
-## 🛠️ Prasyarat Sistem
-Sebelum menjalankan proyek ini, pastikan perangkat kamu telah terpasang:
-* **PHP** `>= 8.2`
-* **Composer**
-* **SQLite3**
-* **Git**
+## 🛠️ Tech Stack
+* **Backend Framework**: Laravel (PHP)
+* **API Architecture**: RESTful JSON API
+* **Database**: SQLite (Development Environment)
+* **Dokumentasi Kontrak**: OpenAPI (`openapi.yaml`)
 
 ---
 
-## ⚙️ Panduan Menjalankan Aplikasi di Lokal
+## 📋 Fitur Modul F-6
+1. **Manajemen Klien**: Menambah, melihat, memperbarui, dan menghapus data profil klien perusahaan.
+2. **Validasi Data**: Pencegahan duplikasi data klien berdasarkan kode unik (*client code*).
+3. **Dokumentasi Endpoint**: Kontrak API terstandarisasi untuk integrasi langsung dengan tim Frontend.
 
-Ikuti langkah-langkah berikut untuk menjalankan server backend di komputer lokal:
+---
 
-### 1. Clone Repositori & Masuk ke Direktori
-```bash
-git clone [https://github.com/Anin05/PPL2026_F6.git](https://github.com/Anin05/PPL2026_F6.git)
+## 🚀 Panduan Menjalankan Proyek di Lokal
+
+Ikuti langkah-langkah berikut di terminal atau VS Code untuk menjalankan server backend:
+
+1. **Clone repositori ini:**
+   ```bash
+   git clone [https://github.com/Anin05/PPL2026_F6.git](https://github.com/Anin05/PPL2026_F6.git)
+Masuk ke direktori proyek:
+
+Bash
 cd PPL2026_F6
+Install dependencies PHP (Composer):
+
+Bash
+composer install
+Salin file konfigurasi lingkungan:
+
+Bash
+cp .env.example .env
+Generate application key:
+
+Bash
+php artisan key:generate
+Jalankan migrasi database dan seeder:
+
+Bash
+php artisan migrate --seed
+Jalankan server lokal:
+
+Bash
+php artisan serve
+Server backend akan aktif di: http://127.0.0.1:8000
